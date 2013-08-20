@@ -19,6 +19,8 @@ function createGrid(size) {
                 height: 50
             }).appendTo(parent);
             $('<div />', {
+            }).addClass('square').appendTo('#'+String(id));
+            $('<div />', {
                 id: id + 1,
                 width: 50
             }).appendTo(parent);
@@ -60,18 +62,22 @@ function checkForSquare(div) {
     //check if left
     if (current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
         console.log("left");
+		$('#'+String(id)).children().css("background","blue")
     }
     //check if right
     else if (current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
         console.log("right");
+		$('#'+String(id-2)).children().css("background","blue")
     }
     //check if top
     else if (current === "solid" && before === "solid" && after === "solid" && below === "solid") {
         console.log("top");
+		$('#'+String(id-1)).children().css("background","blue")
     }
     //check if bottom
     else if (current === "solid" && right_above === "solid" && above === "solid" && left_above === "solid") {
         console.log("bottom");
+		$('#'+String(id-size*2-2)).children().css("background","blue")
     }
 }
 
