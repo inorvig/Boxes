@@ -33,8 +33,13 @@ function createGrid(size) {
     }
     for (var k = 0; k < size; k++) {
         $('<div />', {
-            width: 50
-        }).appendTo(parent);
+                id: id,
+            }).appendTo(parent);
+            $('<div />', {
+                id: id + 1,
+                width: 50
+            }).appendTo(parent);
+            id+=2;
     }
 }
 
@@ -46,33 +51,35 @@ function checkForSquare(div) {
     var before = $(document.getElementById(id - 1)).css("border-style");
     var twoAfter = $(document.getElementById(id + 2)).css("border-style");
     var twoBefore = $(document.getElementById(id - 2)).css("border-style");
-    var tenAfter = $(document.getElementById(id + size * 2)).css("border-style");
-    var tenBefore = $(document.getElementById(id - size * 2)).css("border-style");
-    var elevenAfter = $(document.getElementById(id + size * 2 + 1)).css("border-style");
-    var elevenBefore = $(document.getElementById(id - size * 2 - 1)).css("border-style");
-    var twelveAfter = $(document.getElementById(id + size * 2 + 2)).css("border-style");
-    var twelveBefore = $(document.getElementById(id - size * 2 - 2)).css("border-style");
-    console.log("current: ", current, ", after: ", after, ", before: ", before, ", two after: ", twoAfter, ", twelve after: ", twelveAfter);
+    var left_below = $(document.getElementById(id + size * 2)).css("border-style");
+    var right_above = $(document.getElementById(id - size * 2)).css("border-style");
+    var below = $(document.getElementById(id + size * 2 + 1)).css("border-style");
+    var above = $(document.getElementById(id - size * 2 - 1)).css("border-style");
+    var right_below = $(document.getElementById(id + size * 2 + 2)).css("border-style");
+    var left_above = $(document.getElementById(id - size * 2 - 2)).css("border-style");
     //check if left
-    if (current === "solid" && after === "solid" && twoAfter === "solid" && twelveAfter === "solid") {
+    if (current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
         console.log("left");
     }
     //check if right
-    else if (current === "solid" && before === "solid" && twoBefore === "solid" && tenAfter === "solid") {
+    else if (current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
         console.log("right");
     }
     //check if top
-    else if (current === "solid" && before === "solid" && after === "solid" && elevenAfter === "solid") {
+    else if (current === "solid" && before === "solid" && after === "solid" && below === "solid") {
         console.log("top");
     }
     //check if bottom
-    else if (current === "solid" && tenBefore === "solid" && elevenBefore === "solid" && twelveBefore === "solid") {
+    else if (current === "solid" && right_above === "solid" && above === "solid" && left_above === "solid") {
         console.log("bottom");
     }
 }
 
 
-createGrid(6);
+createGrid(5);
+
+
+
 $(document).ready(function () {
     $(".grid div").hover(
 
@@ -91,3 +98,4 @@ $(document).ready(function () {
         checkForSquare(this);
     });
 });
+
