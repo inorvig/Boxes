@@ -18,7 +18,10 @@ body {
 </style>
 <p>
     Board size: <input type='number' id='size' value=5></button>
-	<button onClick='createGrid()'>Begin!</button>
+	<button onClick='reset()'>Begin!</button>
 </p>
+<p><span id='Player 1'>Player 1</span> is BLUE and <span id='tense'> has</span> won <span id='player1 wins'>0</span> rounds.<br>
+<span id='Player 2'>Player 2</span> is GREEN and has won <span id='player2 wins'>0</span> rounds.</p>
+<p><span id='turnlabel'>It is <span id='turn'>Player 1</span>'s turn.</span></p>
     <script src="jquery.js"></script>
 	<script src="boxes.js"></script>
