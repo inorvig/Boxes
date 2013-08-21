@@ -63,7 +63,7 @@
                 this.match.scores.increment(winner);
                 alert(winner.salutation() + " won!");
             }
-            this.reset();
+            this.reset(Number($('.grid').attr('size')));
         },
 		
         isMoveAvailable: function (id) {
@@ -219,7 +219,7 @@
     };
 	
     var Scores = function() {
-        var scores = { "player1 wins": 0, "player2 wins": 0 };
+        var scores = { "Player 1 wins": 0, "Player 2 wins": 0 };
 
         var display = function() {
             for (var i in scores) {
@@ -228,7 +228,7 @@
         };
 
         this.increment = function(player) {
-            scores[player.id]++;
+            scores[player.id+' wins']++;
             display();
         };
 
