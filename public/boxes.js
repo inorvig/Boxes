@@ -43,15 +43,11 @@
 	
     var Board = function(match, firstPlayer) {
         this.match = match;
-        this.reset();
+        this.reset(Number(document.getElementById('size').value));
     };
 	
     Board.prototype = {
         isGameOver: function() {
-			console.log("square colors = ",this.squareColors());
-			console.log('max = ',Math.max(this.colorSquares('rgb(0, 0, 255)'),this.colorSquares('rgb(0, 128, 0)')));
-			console.log("min = ",Math.min(this.colorSquares('rgb(0, 0, 255)'),this.colorSquares('rgb(0, 128, 0)')));
-			console.log('leftover = ',this.colorSquares("rgba(0, 0, 0, 0)"));
 			return ((this.filledSquares() === this.squareColors().length)||
 					(Math.min(this.colorSquares('rgb(0, 0, 255)'),this.colorSquares('rgb(0, 128, 0)'))+this.colorSquares("rgba(0, 0, 0, 0)")<
 				 	Math.max(this.colorSquares('rgb(0, 0, 255)'),this.colorSquares('rgb(0, 128, 0)'))))            
@@ -118,6 +114,7 @@
 
         //Clears the board and sets the currentPlayer to player1
         reset: function (size) {
+			$('.grid').remove();
             this.setCurrentPlayer(this.match.player1);
 		    var parent = $('<div />', {
 		        class: 'grid',
@@ -178,7 +175,6 @@
 		    var left_above = $(document.getElementById(id - size * 2 - 2)).css("border-style");
 		    //check if left
 		    if (current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
-		        console.log("left");
 				if (mover==this.match.player1){
 					$('#'+String(id)).children().css("background","blue");
 				}
@@ -188,7 +184,6 @@
 		    }
 		    //check if right
 		    if (current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
-		        console.log("right");
 				if (mover==this.match.player1){
 					$('#'+String(id-2)).children().css("background","blue")
 				}
@@ -198,7 +193,6 @@
 		    }
 		    //check if top
 		    if (current === "solid" && before === "solid" && after === "solid" && below === "solid") {
-		        console.log("top");
 				if (mover==this.match.player1){
 					$('#'+String(id-1)).children().css("background","blue")
 				}
@@ -208,7 +202,6 @@
 		    }
 		    //check if bottom
 		    if (current === "solid" && right_above === "solid" && above === "solid" && left_above === "solid") {
-		        console.log("bottom");
 				if (mover==this.match.player1){
 					$('#'+String(id-size*2-2)).children().css("background","blue")
 				}
@@ -270,29 +263,25 @@
 
 
 	$(document).ready(function () {
-	    $(".grid div").hover(
-
-	    function () {
-	        $(this).css("border-style", "solid");
-	    },
-
-	    function () {
-	        if (!$(this).attr("clicked")) {
-	            $(this).css("border-style", "dashed");
-	        }
-	    });
-	    $(".grid div").click(function () {
+		$('body').on('click','.grid div',function () {
 			if (match.board.isMoveAvailable($(this).attr('id'))){
 		        $(this).css("border", "1px solid #000");
 		        $(this).attr("clicked", "true");
 		        match.board.playMove(this);
 			}
 	    });
+		$('body').on('mouseenter','.grid div',function () { 
+			$(this).css("border-style", "solid"); 
+		});
+		$('body').on('mouseleave','.grid div', function () { 
+			if (!$(this).attr("clicked")) { 
+				$(this).css("border-style", "dashed"); 
+			} 
+		});
 	});
 	
-    exports.reset = function () {		
-		$('.grid').remove();
-        board.reset(Number(document.getElementById('size').value));
+    exports.reset = function () {
+        match.board.reset(Number(document.getElementById('size').value));
     };
 })(this);
 
