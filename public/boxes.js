@@ -158,6 +158,7 @@
         },
 		
 		playMove: function(div) {
+			var square = false;
             var mover = this.currentPlayer;
             var nextMover = match.otherPlayer(this.currentPlayer);
 		    var size = $(".grid").attr("size");
@@ -174,7 +175,9 @@
 		    var right_below = $(document.getElementById(id + size * 2 + 2)).css("border-style");
 		    var left_above = $(document.getElementById(id - size * 2 - 2)).css("border-style");
 		    //check if left
-		    if (current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
+		    if (id%(size*2-1)>0 && current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
+				square = true;
+				console.log("left and id = ",id);
 				if (mover==this.match.player1){
 					$('#'+String(id)).children().css("background","blue");
 				}
@@ -183,7 +186,10 @@
 				}
 		    }
 		    //check if right
-		    if (current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
+		    if (((id<size*3+1 && id%(size*3+1)<size*2+1)|| id>=size*3+1 && id%(size*3+1)>=0) && current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
+				square = true;
+				console.log("right");
+				console.log("id = ",id," remainder = ",id%(size*3+1));
 				if (mover==this.match.player1){
 					$('#'+String(id-2)).children().css("background","blue")
 				}
@@ -192,7 +198,9 @@
 				}
 		    }
 		    //check if top
-		    if (current === "solid" && before === "solid" && after === "solid" && below === "solid") {
+		    if ($(document.getElementById(id)).css('width')==='50px' && current === "solid" && before === "solid" && after === "solid" && below === "solid") {
+				square = true;
+				console.log("top");
 				if (mover==this.match.player1){
 					$('#'+String(id-1)).children().css("background","blue")
 				}
@@ -201,7 +209,9 @@
 				}
 		    }
 		    //check if bottom
-		    if (current === "solid" && right_above === "solid" && above === "solid" && left_above === "solid") {
+		    if ($(document.getElementById(id)).css('width')==='50px' && current === "solid" && right_above === "solid" && above === "solid" && left_above === "solid") {
+				square = true;
+				console.log("bottom");
 				if (mover==this.match.player1){
 					$('#'+String(id-size*2-2)).children().css("background","blue")
 				}
@@ -212,7 +222,10 @@
 			if (this.isGameOver()) {
 			    this.gameOver();
 			}
-			this.setCurrentPlayer(nextMover);
+			if (!square){
+				console.log("switching player");
+				this.setCurrentPlayer(nextMover);
+			}
 		},
 		
         
