@@ -123,7 +123,7 @@
 		    }).addClass('grid').appendTo('body');
 		    $('.grid').attr("size", size);
 		    var row = 0;
-		    var id = 0;
+		    var id = 1;
 		    for (var i = 0; i < size; i++) {
 		        for (var j = 0; j < size; j++) {
 		            $('<div />', {
@@ -175,7 +175,7 @@
 		    var right_below = $(document.getElementById(id + size * 2 + 2)).css("border-style");
 		    var left_above = $(document.getElementById(id - size * 2 - 2)).css("border-style");
 		    //check if left
-		    if (id%(size*2-1)>0 && current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
+		    if (10>id%(size*2+1)>0 && current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
 				square = true;
 				console.log("left and id = ",id);
 				if (mover==this.match.player1){
@@ -186,10 +186,10 @@
 				}
 		    }
 		    //check if right
-		    if (((id<size*3+1 && id%(size*3+1)<size*2+1)|| id>=size*3+1 && id%(size*3+1)>=0) && current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
+		    if (((id<size*3 && id%(size*3)<size*2)||id>=size*3 && id%(size*2+1)>1) && current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
 				square = true;
 				console.log("right");
-				console.log("id = ",id," remainder = ",id%(size*3+1));
+				console.log("id = ",id," remainder = ",id%(size*3));
 				if (mover==this.match.player1){
 					$('#'+String(id-2)).children().css("background","blue")
 				}
