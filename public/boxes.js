@@ -175,7 +175,8 @@
 		    var right_below = $(document.getElementById(id + size * 2 + 2)).css("border-style");
 		    var left_above = $(document.getElementById(id - size * 2 - 2)).css("border-style");
 		    //check if left
-		    if (10>id%(size*2+1)>0 && current === "solid" && after === "solid" && twoAfter === "solid" && right_below === "solid") {
+			if ($(document.getElementById(id)).css('height')==='50px' && current === "solid" && after === "solid" && twoAfter == "solid" && right_below === "solid"){
+	
 				square = true;
 				console.log("left and id = ",id);
 				if (mover==this.match.player1){
@@ -186,7 +187,7 @@
 				}
 		    }
 		    //check if right
-		    if (((id<size*3 && id%(size*3)<size*2)||id>=size*3 && id%(size*2+1)>1) && current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid") {
+			if ($(document.getElementById(id)).css('height')==='50px' && current === "solid" && before === "solid" && twoBefore === "solid" && left_below === "solid"){
 				square = true;
 				console.log("right");
 				console.log("id = ",id," remainder = ",id%(size*3));
@@ -223,7 +224,7 @@
 			    this.gameOver();
 			}
 			if (!square){
-				console.log("switching player");
+				//console.log("switching player");
 				this.setCurrentPlayer(nextMover);
 			}
 		},
